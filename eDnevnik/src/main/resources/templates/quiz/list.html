@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista Korisnika</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous"></head>
+<body>
+<div class="container mt-5">
+    <h2>Quizovi</h2>
+    <a href="/quiz/add" class="btn btn-success">Dodaj Novi Quiz</a>
+    <a class="btn btn-danger" href="/home" >Main page</a>
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+        <tr>
+            <th>Ime Quiza</th>
+            <th>Opis</th>
+            <th>Datum stvaranja</th>
+            <th>Akcije</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="quiz : ${quizovi}">
+            <td th:text="${quiz.title}">Ime</td>
+            <td th:text="${quiz.description}">Opis quiza</td>
+            <td th:text="${quiz.datum}">Datum</td>
+            <!-- Dodajte dodatne ćelije ako je potrebno -->
+
+            <td>
+                <div>
+                    <form th:action="@{/quiz/delete/{quizId}(quizId=${quiz.id})}" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-danger">Obriši</button>
+                    </form>
+                    <a th:href="@{/quiz/edit/{quizId}(quizId=${quiz.id})}" class="btn btn-primary d-inline-block">Uredi</a>
+
+
+                    <a th:href="@{/quiz/play/{quizId}(quizId=${quiz.id})}" class="btn btn-success d-inline-block" style="color: white">Igraj</a>
+                  <!--<form th:action="@{/quiz/play/{quizId}(quizId=${quiz.id})}" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-success">Igraj</button>
+                    </form>
+                     <a th:href="@{/quiz/edit/{quizId}(quizId=${quiz.id})}" class="btn btn-success d-inline-block" style="color: white">Igraj</a>Treba promjeniti ovdjde i gore href -->
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
